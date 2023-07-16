@@ -4,7 +4,7 @@ import Child from "./Child";
 const Parent = () => {
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState("");
-  const [cartItems, setCartItems] = useState([]);
+  const [items, setItems] = useState([]);
 
   const handleItemNameChange = (event) => {
     setItemName(event.target.value);
@@ -14,23 +14,23 @@ const Parent = () => {
     setItemPrice(event.target.value);
   };
 
-  const handleAddToCart = () => {
+  const handleAddItem = () => {
     if (itemName && itemPrice) {
       const newItem = {
         name: itemName,
         price: itemPrice
       };
 
-      setCartItems([...cartItems, newItem]);
+      setItems([...items, newItem]);
       setItemName("");
       setItemPrice("");
     }
   };
 
-  const handleRemoveFromCart = (index) => {
-    const updatedCartItems = [...cartItems];
-    updatedCartItems.splice(index, 1);
-    setCartItems(updatedCartItems);
+  const handleRemoveItem = (index) => {
+    const updatedItems = [...items];
+    updatedItems.splice(index, 1);
+    setItems(updatedItems);
   };
 
   return (
@@ -41,9 +41,9 @@ const Parent = () => {
         <input type="text" value={itemName} onChange={handleItemNameChange} />
         <label htmlFor="number">Item Price:</label>
         <input type="number" value={itemPrice} onChange={handleItemPriceChange} />
-        <button type="button" onClick={handleAddToCart}>Add to Cart</button>
+        <input type="button" value="Add Item" onClick={handleAddItem} />
       </form>
-      <Child cartItems={cartItems} handleRemoveFromCart={handleRemoveFromCart} />
+      <Child items={items} handleRemoveItem={handleRemoveItem} />
     </div>
   );
 };
